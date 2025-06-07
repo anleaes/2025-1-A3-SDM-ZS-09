@@ -4,4 +4,5 @@ from .psychologist_view import PsychologistViewSet
 from .therapy_plan_view import TherapyPlanViewSet
 from .session_view import SessionViewSet
 from .payment_view import PaymentViewSet
+from .schedule_view import ScheduleViewSet
 
