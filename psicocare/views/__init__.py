@@ -6,4 +6,5 @@ from .session_view import SessionViewSet
 from .payment_view import PaymentViewSet
 from .schedule_view import ScheduleViewSet
 from .specialty_view import SpecialtyViewSet
+from .psychologist_specialty_view import PsychologistSpecialtyViewSet
 
