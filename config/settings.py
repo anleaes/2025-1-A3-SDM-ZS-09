@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'core',
+    'psicocare',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'F7VJ7I2UX9DSMITC', 
+        'USER': 'admin',
+        'PASSWORD': 'Ritter*123456',
+        'HOST': 'f7vj7i2ux9dsmitc_high.adb.sa-saopaulo-1.oraclecloud.com',
+        'PORT': '1521', 
     }
 }
 
