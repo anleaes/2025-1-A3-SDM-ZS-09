@@ -1,3 +1,3 @@
 from .user_serializer import UserSerializer
 from .patient_serializer import PatientSerializer
-
+from .psychologist_serializer import PsychologistSerializer
