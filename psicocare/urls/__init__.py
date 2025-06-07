@@ -6,4 +6,5 @@ urlpatterns = [
     path('psychologists/', include('psicocare.urls.psychologist_urls')),
     path('therapy-plans/', include('psicocare.urls.therapy_plan_urls')),
     path('sessions/', include('psicocare.urls.session_urls')),
+    path('payments/', include('psicocare.urls.payment_urls')),
 ]
