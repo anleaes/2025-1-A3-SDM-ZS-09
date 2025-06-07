@@ -5,6 +5,7 @@ from .therapy_plan import TherapyPlan
 from .session import Session
 from .payment import Payment
 from .schedule import Schedule
+from .specialty import Specialty
 
 
 
