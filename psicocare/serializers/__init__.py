@@ -4,3 +4,4 @@ from .psychologist_serializer import PsychologistSerializer
 from .therapy_plan_serializer import TherapyPlanSerializer
 from .session_serializer import SessionSerializer
 from .payment_serializer import PaymentSerializer
+from .schedule_serializer import ScheduleSerializer
