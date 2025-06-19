@@ -52,3 +52,21 @@ class TherapyPlan(models.Model):
 
     def __str__(self):
         return f'Plano de {self.paciente.user.nome} com {self.psicologo.user.nome}'
+    
+class Session(models.Model):
+    STATUS_CHOICES = [
+        ('agendada', 'Agendada'),
+        ('concluida', 'Concluída'),
+        ('cancelada', 'Cancelada'),
+    ]
+
+    data = models.DateField()
+    horario = models.TimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='agendada')
+    observacoes = models.TextField(blank=True)
+    paciente = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    psicologo = models.ForeignKey(Psychologist, on_delete=models.CASCADE)
+    plano = models.ForeignKey(TherapyPlan, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Sessão em {self.data} às {self.horario} - {self.paciente.user.nome}'
