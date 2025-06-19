@@ -47,3 +47,9 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Payment
         fields = ['id', 'valor', 'metodo', 'status', 'data', 'sessao']
         read_only_fields = ['id']
+
+class SpecialtySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialty
+        fields = ['id', 'nome', 'descricao']
+        read_only_fields = ['id']
