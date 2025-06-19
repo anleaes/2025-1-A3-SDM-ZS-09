@@ -6,35 +6,23 @@ from .models import User
 from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer, SessionSerializer, PaymentSerializer, SpecialtySerializer, PsychologistSpecialtySerializer, ScheduleSerializer
 from .models import Patient, Psychologist, TherapyPlan, Session, Payment, Specialty, PsychologistSpecialty, Schedule
 
-USUARIOS = []
-ID_COUNTER = 1
 
 #user views
 
 @api_view(['GET'])
 def get_user(request):
-    # Exemplo de retorno fixo
-    user = {
-        'name': 'Cíntia',
-        'email': 'cintia@email.com',
-        'senha': '123456',
-        'tipo': 'paciente'
-    }
-    return Response(USUARIOS)
+    print(">>> Entrou na view get_user")
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def create_user(request):
-    global ID_COUNTER
-    data = request.data.copy()
-    data['id'] = ID_COUNTER  # adiciona ID manualmente
-
-    serializer = UserSerializer(data=data)
+    serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
-        USUARIOS.append(serializer.data)
-        ID_COUNTER += 1
+        serializer.save()  # SALVA NO BANCO! ✨
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 #patient views
 
 @api_view(['GET'])
