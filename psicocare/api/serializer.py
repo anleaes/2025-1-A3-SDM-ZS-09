@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Patient, Psychologist
+from .models import User, Patient, Psychologist, TherapyPlan
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,4 +19,13 @@ class PsychologistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Psychologist
         fields = ['id', 'especialidade', 'crp', 'curriculo', 'telefone', 'user']
+        read_only_fields = ['id']
+        
+class TherapyPlanSerializer(serializers.ModelSerializer):
+    paciente = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all())
+    psicologo = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+
+    class Meta:
+        model = TherapyPlan
+        fields = ['id', 'descricao', 'objetivos', 'data_inicio', 'data_fim', 'paciente', 'psicologo']
         read_only_fields = ['id']
