@@ -106,3 +106,21 @@ class PsychologistSpecialty(models.Model):
 
     def __str__(self):
         return f'{self.psicologo.user.nome} - {self.especialidade.nome}'
+
+class Schedule(models.Model):
+    DIAS_SEMANA = [
+        ('segunda', 'Segunda-feira'),
+        ('terca', 'Terça-feira'),
+        ('quarta', 'Quarta-feira'),
+        ('quinta', 'Quinta-feira'),
+        ('sexta', 'Sexta-feira'),
+        ('sabado', 'Sábado'),
+        ('domingo', 'Domingo'),
+    ]
+
+    dia_semana = models.CharField(max_length=10, choices=DIAS_SEMANA)
+    horario_disponivel = models.TimeField()
+    psicologo = models.ForeignKey(Psychologist, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.psicologo.user.nome} - {self.dia_semana} às {self.horario_disponivel}'
