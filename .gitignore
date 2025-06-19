@@ -4,3 +4,5 @@ __pycache__/
 *.log
 psicocare/api/__pycache__/models.cpython-313.pyc
 psicocare/api/__pycache__/serializer.cpython-313.pyc
+psicocare/api/__pycache__/serializer.cpython-313.pyc
+psicocare/api/__pycache__/views.cpython-313.pyc
