@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_user, create_user, get_patients, create_patient, get_psychologists, create_psychologist, get_therapy_plans, create_therapy_plan, get_sessions, create_session
+from .views import get_user, create_user, get_patients, create_patient, get_psychologists, create_psychologist, get_therapy_plans, create_therapy_plan, get_sessions, create_session, get_payments, create_payment
 
 
 urlpatterns = [
@@ -17,4 +17,7 @@ urlpatterns = [
 
     path('sessions/', get_sessions, name='get_sessions'),
     path('sessions/create/', create_session, name='create_session'),
+
+    path('payments/', get_payments, name='get_payments'),
+    path('payments/create/', create_payment, name='create_payment'),
 ]
