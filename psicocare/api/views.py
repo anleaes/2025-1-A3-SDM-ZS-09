@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
-from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer
-from .models import Patient, Psychologist, TherapyPlan, Session, Payment
+from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer, SessionSerializer, PaymentSerializer, SpecialtySerializer
+from .models import Patient, Psychologist, TherapyPlan, Session, Payment, Specialty
 
 USUARIOS = []
 ID_COUNTER = 1
@@ -108,6 +108,21 @@ def get_payments(request):
 @api_view(['POST'])
 def create_payment(request):
     serializer = PaymentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#specialties views
+@api_view(['GET'])
+def get_specialties(request):
+    especialidades = Specialty.objects.all()
+    serializer = SpecialtySerializer(especialidades, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_specialty(request):
+    serializer = SpecialtySerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
