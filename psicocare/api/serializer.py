@@ -53,3 +53,12 @@ class SpecialtySerializer(serializers.ModelSerializer):
         model = Specialty
         fields = ['id', 'nome', 'descricao']
         read_only_fields = ['id']
+
+class PsychologistSpecialtySerializer(serializers.ModelSerializer):
+    psicologo = serializers.PrimaryKeyRelatedField(queryset=Psychologist.objects.all())
+    especialidade = serializers.PrimaryKeyRelatedField(queryset=Specialty.objects.all())
+
+    class Meta:
+        model = PsychologistSpecialty
+        fields = ['id', 'psicologo', 'especialidade']
+        read_only_fields = ['id']
