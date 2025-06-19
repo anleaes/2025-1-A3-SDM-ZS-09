@@ -14,3 +14,20 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Patient(models.Model):
+    GENERO_CHOICES = [
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outro'),
+    ]
+
+    idade = models.IntegerField()
+    genero = models.CharField(max_length=1, choices=GENERO_CHOICES)
+    telefone = models.CharField(max_length=15)
+    plano_saude = models.CharField(max_length=100, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Paciente: {self.user.nome}'  
