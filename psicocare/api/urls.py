@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_user, create_user, get_patients, create_patient, get_psychologists, create_psychologist, get_therapy_plans, create_therapy_plan, get_sessions, create_session, get_payments, create_payment, get_specialties, create_specialty
+from .views import get_user, create_user, get_patients, create_patient, get_psychologists, create_psychologist, get_therapy_plans, create_therapy_plan, get_sessions, create_session, get_payments, create_payment, get_specialties, create_specialty, get_psychologist_specialties, create_psychologist_specialty
 
 
 urlpatterns = [
@@ -23,4 +23,7 @@ urlpatterns = [
 
     path('specialties/', get_specialties, name='get_specialties'),
     path('specialties/create/', create_specialty, name='create_specialty'),
+
+    path('psychologist-specialties/', get_psychologist_specialties, name='get_psychologist_specialties'),
+    path('psychologist-specialties/create/', create_psychologist_specialty, name='create_psychologist_specialty'),
 ]
