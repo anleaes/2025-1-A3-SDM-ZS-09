@@ -70,3 +70,26 @@ class Session(models.Model):
 
     def __str__(self):
         return f'Sessão em {self.data} às {self.horario} - {self.paciente.user.nome}'
+    
+class Payment(models.Model):
+    METODO_CHOICES = [
+        ('pix', 'PIX'),
+        ('cartao', 'Cartão'),
+        ('boleto', 'Boleto'),
+    ]
+
+    STATUS_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('pago', 'Pago'),
+        ('cancelado', 'Cancelado'),
+    ]
+
+    valor = models.DecimalField(max_digits=8, decimal_places=2)
+    metodo = models.CharField(max_length=20, choices=METODO_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    data = models.DateField()
+    sessao = models.OneToOneField(Session, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Pagamento {self.status} - R$ {self.valor} para {self.sessao}'
+
