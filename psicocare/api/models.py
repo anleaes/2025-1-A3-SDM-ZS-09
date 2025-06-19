@@ -41,3 +41,14 @@ class Psychologist(models.Model):
 
     def __str__(self):
         return f'Psicólogo: {self.user.nome}'
+    
+class TherapyPlan(models.Model):
+    descricao = models.TextField()
+    objetivos = models.TextField()
+    data_inicio = models.DateField()
+    data_fim = models.DateField()
+    paciente = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    psicologo = models.ForeignKey(Psychologist, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Plano de {self.paciente.user.nome} com {self.psicologo.user.nome}'
