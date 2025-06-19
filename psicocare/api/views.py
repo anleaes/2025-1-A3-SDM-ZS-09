@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
-from .serializer import UserSerializer, PatientSerializer
+from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer
 
 USUARIOS = []
 ID_COUNTER = 1
@@ -45,6 +45,22 @@ def get_patients(request):
 @api_view(['POST'])
 def create_patient(request):
     serializer = PatientSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#psychologist views
+
+@api_view(['GET'])
+def get_psychologists(request):
+    psicologos = Psychologist.objects.all()
+    serializer = PsychologistSerializer(psicologos, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_psychologist(request):
+    serializer = PsychologistSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
