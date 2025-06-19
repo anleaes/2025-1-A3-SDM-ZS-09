@@ -3,11 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
-from .serializer import UserSerializer
+from .serializer import UserSerializer, PatientSerializer
 
 USUARIOS = []
 ID_COUNTER = 1
 
+#user views
 
 @api_view(['GET'])
 def get_user(request):
@@ -30,5 +31,21 @@ def create_user(request):
     if serializer.is_valid():
         USUARIOS.append(serializer.data)
         ID_COUNTER += 1
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#patient views
+
+@api_view(['GET'])
+def get_patients(request):
+    pacientes = Patient.objects.all()
+    serializer = PatientSerializer(pacientes, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_patient(request):
+    serializer = PatientSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
