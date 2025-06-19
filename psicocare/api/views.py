@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer
-from .models import Patient, Psychologist, TherapyPlan
+from .models import Patient, Psychologist, TherapyPlan, Session
 
 USUARIOS = []
 ID_COUNTER = 1
@@ -82,3 +82,17 @@ def create_therapy_plan(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#session views
+@api_view(['GET'])
+def get_sessions(request):
+    sessoes = Session.objects.all()
+    serializer = SessionSerializer(sessoes, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_session(request):
+    serializer = SessionSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
