@@ -2,3 +2,5 @@ __pycache__/
 *.py[cod]
 *.sqlite3
 *.log
+psicocare/api/__pycache__/models.cpython-313.pyc
+psicocare/api/__pycache__/serializer.cpython-313.pyc
