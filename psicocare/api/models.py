@@ -93,3 +93,9 @@ class Payment(models.Model):
     def __str__(self):
         return f'Pagamento {self.status} - R$ {self.valor} para {self.sessao}'
 
+class Specialty(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return self.nome
