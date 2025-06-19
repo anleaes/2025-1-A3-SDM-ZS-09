@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User
-from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer, SessionSerializer, PaymentSerializer, SpecialtySerializer
-from .models import Patient, Psychologist, TherapyPlan, Session, Payment, Specialty
+from .serializer import UserSerializer, PatientSerializer, PsychologistSerializer, TherapyPlanSerializer, SessionSerializer, PaymentSerializer, SpecialtySerializer, PsychologistSpecialtySerializer
+from .models import Patient, Psychologist, TherapyPlan, Session, Payment, Specialty, PsychologistSpecialty
 
 USUARIOS = []
 ID_COUNTER = 1
@@ -123,6 +123,22 @@ def get_specialties(request):
 @api_view(['POST'])
 def create_specialty(request):
     serializer = SpecialtySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+##psychologist specialty views
+
+@api_view(['GET'])
+def get_psychologist_specialties(request):
+    relacoes = PsychologistSpecialty.objects.all()
+    serializer = PsychologistSpecialtySerializer(relacoes, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_psychologist_specialty(request):
+    serializer = PsychologistSpecialtySerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

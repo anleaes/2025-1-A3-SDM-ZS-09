@@ -99,3 +99,10 @@ class Specialty(models.Model):
 
     def __str__(self):
         return self.nome
+
+class PsychologistSpecialty(models.Model):
+    psicologo = models.ForeignKey(Psychologist, on_delete=models.CASCADE)
+    especialidade = models.ForeignKey(Specialty, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.psicologo.user.nome} - {self.especialidade.nome}'
