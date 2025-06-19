@@ -31,3 +31,13 @@ class Patient(models.Model):
 
     def __str__(self):
         return f'Paciente: {self.user.nome}'  
+    
+class Psychologist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    especialidade = models.CharField(max_length=100)
+    crp = models.CharField(max_length=20)
+    curriculo = models.TextField()
+    telefone = models.CharField(max_length=15)
+
+    def __str__(self):
+        return f'Psicólogo: {self.user.nome}'
