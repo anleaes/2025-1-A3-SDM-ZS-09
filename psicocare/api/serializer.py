@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Patient, Psychologist, TherapyPlan, Session
+from .models import User, Patient, Psychologist, TherapyPlan, Session, Payment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,4 +38,12 @@ class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = ['id', 'data', 'horario', 'status', 'observacoes', 'paciente', 'psicologo', 'plano']
+        read_only_fields = ['id']
+
+class PaymentSerializer(serializers.ModelSerializer):
+    sessao = serializers.PrimaryKeyRelatedField(queryset=Session.objects.all())
+
+    class Meta:
+        model = Payment
+        fields = ['id', 'valor', 'metodo', 'status', 'data', 'sessao']
         read_only_fields = ['id']
