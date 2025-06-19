@@ -4,3 +4,4 @@ __pycache__/
 *.log
 psicocare/db.sqlite3
 psicocare/db.sqlite3
+db.sqlite3
