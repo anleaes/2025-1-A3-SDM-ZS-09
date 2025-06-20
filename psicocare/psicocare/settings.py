@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import oracledb
+oracledb.init_oracle_client(lib_dir=r"C:\oracle\instantclient_23_8")
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +76,22 @@ WSGI_APPLICATION = 'psicocare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+##DATABASES = {
+    ##'default': {
+       ## 'ENGINE': 'django.db.backends.sqlite3',
+        ##'NAME': BASE_DIR / 'db.sqlite3',
+    ##}
+##}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'ay4hwaytwnmcikob_high',  # use alias from tnsnames.ora
+        'USER': 'ADMIN',
+        'PASSWORD': 'Ritter*12345',
+        'OPTIONS': {
+            'wallet_location': r'C:\Users\conta\Documents\A3-DJANGO-INFOS\Wallet_AY4HWAYTWNMCIKOB',
+        }
     }
 }
 

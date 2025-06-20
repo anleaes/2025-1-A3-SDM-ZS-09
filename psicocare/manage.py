@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+os.environ['TNS_ADMIN'] = r'C:\Users\conta\Documents\A3-DJANGO-INFOS\Wallet_AY4HWAYTWNMCIKOB'
+
 import sys
 
 
