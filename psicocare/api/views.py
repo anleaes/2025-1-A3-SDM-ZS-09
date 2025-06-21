@@ -85,6 +85,16 @@ def create_session(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['DELETE'])
+def delete_session(request, pk):
+    try:
+        session = Session.objects.get(pk=pk)
+        session.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Session.DoesNotExist:
+        return Response({'error': 'Sessão não encontrada.'}, status=status.HTTP_404_NOT_FOUND)
+
+
 #payment views
 
 @api_view(['GET'])
