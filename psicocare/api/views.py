@@ -25,11 +25,23 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #patient views
 
-@api_view(['GET'])
+""" @api_view(['GET'])
 def get_patients(request):
     pacientes = Patient.objects.all()
     serializer = PatientSerializer(pacientes, many=True)
+    return Response(serializer.data) """
+
+@api_view(['GET'])
+def get_patients(request):
+    user_id = request.GET.get('user')  # Pega o ?user=62 da URL
+    if user_id:
+        pacientes = Patient.objects.filter(user_id=user_id)
+    else:
+        pacientes = Patient.objects.all()
+    
+    serializer = PatientSerializer(pacientes, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def create_patient(request):
@@ -41,11 +53,22 @@ def create_patient(request):
 
 #psychologist views
 
-@api_view(['GET'])
+""" @api_view(['GET'])
 def get_psychologists(request):
     psicologos = Psychologist.objects.all()
     serializer = PsychologistSerializer(psicologos, many=True)
+    return Response(serializer.data) """
+
+@api_view(['GET'])
+def get_psychologists(request):
+    user_id = request.GET.get('user')
+    if user_id:
+        psicologos = Psychologist.objects.filter(user_id=user_id)
+    else:
+        psicologos = Psychologist.objects.all()
+    serializer = PsychologistSerializer(psicologos, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def create_psychologist(request):
@@ -71,11 +94,27 @@ def create_therapy_plan(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #session views
-@api_view(['GET'])
+""" @api_view(['GET'])
 def get_sessions(request):
     sessoes = Session.objects.all()
     serializer = SessionSerializer(sessoes, many=True)
+    return Response(serializer.data) """
+
+@api_view(['GET'])
+def get_sessions(request):
+    psicologo_id = request.GET.get('psicologo')
+    paciente_id = request.GET.get('paciente')
+
+    if psicologo_id:
+        sessoes = Session.objects.filter(psicologo_id=psicologo_id)
+    elif paciente_id:
+        sessoes = Session.objects.filter(paciente_id=paciente_id)
+    else:
+        sessoes = Session.objects.all()
+
+    serializer = SessionSerializer(sessoes, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def create_session(request):
